@@ -143,8 +143,17 @@ typedef struct message {
 //    the padded message becomes congruent to 448, modulo 512. In all, at
 //    least one bit and at most 512 bits are appended.
 
-message m_padding(message m) {
-    int pad = 
+message* m_padding(message* m) {
+    int temp = m.size+1;
+    while(temp % 64 != 48 ) temp++;
+
+    m.message = (uint8_t*)realloc(temp);
+
+    m.message[m.size] = 0b10000000;
+    for(m.size++; i<temp; m.size++) m.message[m.size] = 0;
+
+
+    return m
 }
 
 // 3.2 Step 2. Append Length
